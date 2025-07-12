@@ -1,0 +1,215 @@
+*{
+  color: #333;
+}
+
+#heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 15px;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+
+}
+#heading h1{
+        text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+        font-size: 2.5rem;
+
+}
+#selectSub{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0px 8px;
+}
+#selectSub div{
+    border: 1px solid gray;
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 5px 2px gray; */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    height: auto;
+    width: auto;
+    padding: 20px;
+    
+ }
+ #selectSub div input{
+   border: 1px solid black;
+   border-radius:4px;
+
+ }
+#getItBtn{
+   width: 100%;
+   display: flex;
+   justify-content: center;
+ }
+ #getItBtn button{
+    width: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+    height: 35px;
+    transition: all 0.5s ease-out;
+    background-color: rgb(179, 234, 252);
+    
+ }
+ #getItBtn button:hover{
+     background-color: blue;
+ color: white;
+ transform: scale(1.1);
+ border-radius: 5px;
+ cursor: pointer;
+ border:none;
+  /* cursor: pointer; */
+ }
+#weekCount{
+   background-color: blue;
+   color: white;
+   cursor: pointer;
+}
+#weekCount:hover{
+   transform: scale(1.2);
+}
+#resLink{
+   color: blue;
+}
+
+ 
+ #weekNav{
+    display: flex;
+    gap: 20px;
+    overflow: auto;
+    padding: 0px 10px;
+ }
+ #weekNav p{
+    border: 2px solid blue ;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: auto;
+    transition: all 0.3s ease-out;
+ }
+ #weekNav p:hover{
+ background-color: blue;
+ color: white;
+ transform: scale(1.1);
+ border-radius: 5px;
+ cursor: pointer;
+ border: none;
+ 
+ }
+ #workFlow{
+    /* border: 2px solid red; */
+    max-height: 400px;
+    overflow: auto;
+    /* max-width: 9/00px; */
+    width: 100%;
+     
+ }
+ #workFlow  p{
+    padding: 0px 20px;
+       background-color: rgb(202, 233, 243);  
+       border-radius: 12px;
+    color: #4a5568;
+    font-weight: 500;
+  }
+ #workFlow  p:hover{
+    transform: translateY(-1px); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+ }
+ #workFlowOutsideDiv{
+    border: 2px solid blue;
+    padding: 5px 10px;
+    display: flex;
+     align-items: center;
+    justify-content: center;
+    width: 75%;
+    max-width:100%;
+
+ }
+ #savebtn{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+    margin-bottom: 20px;
+ }
+ #savebtn button{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 120px;
+    height: 35px;
+    transition: all 0.3s ease-out;
+ }
+ #savebtn button:hover{
+    background-color: blue;
+ color: white;
+ transform: scale(1.1);
+ border-radius: 5px;
+ cursor: pointer;
+ border: none;
+ }
+
+#popUp{
+    border: 2px solid red;
+    width: 200px;
+    border-radius: 8px;
+    padding: 2px 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+#titlePart{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   
+}
+   @media (min-width:800px) {
+      #workFlow{
+       max-height: 600px;
+      }
+   }
+   @media (max-width:750px) {
+      #workFlowOutsideDiv{
+    border: 2px solid black;
+    display: flex;
+     align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+ }
+ #selectSub{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 10px;
+   width: 100%;
+ }
+ #selectSub div{
+   
+   width: 70%;
+   
+ }
+}
+
+
+   @media (max-width:450px) {
+  
+ #selectSub{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 10px;
+   width: 100%;
+ }
+ #selectSub div{
+   width: 80%;
+   
+ }
+ #selectSub div input{
+   width: 80%;
+ }
+ #weekNav{
+   
+ }
+}
