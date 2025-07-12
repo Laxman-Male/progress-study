@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+
+  <h2 class="mb-4">😉 Welcome! make preparation journey smooth with us</h2>
+</div>
+
+
+<div
+  class="d-flex align-items-center justify-content-center position-fixed  top-50 start-50 translate-middle w-100 py-2  ">
+  <div id="innerBox"
+    class="border border-primary d-flex flex-column col-8 col-sm-6 col-md-6 col-lg-6 col-xl-3  bg-primary p-4 rounded-2 ">
+    <p class="fs-3 fw-semibold">Register
+      <!-- <a routerLinkActive="active" routerLink="/register" class="fs-4 fw-semibold  rounded-5 p-1" id="create_plan" > Register</a> -->
+    </p>
+
+    <!-- This tells Angular:
+"Hey Angular, this form is now controlled by Angular’s form system (NgForm)."
+registerForm now gives you access to: -->
+    <!-- registerForm.valid
+registerForm.invalid
+registerForm.dirty
+registerForm.touched
+registerForm.controls (an object with all inputs)
+registerForm.value  -->
+
+    <form  #registerForm="ngForm" class="d-flex flex-column"
+      (ngSubmit)="registerBtn(name.value ,email.value, password.value)">
+
+      <label class="fw-semibold">Name:</label>
+      <!--   #name="ngModel" gives you access to this specific control.
+Then you can use: name.valid name.invalid name.touched name.dirty -->
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required class="ps-2" />
+      <!-- registerForm.controls['name']?.invalid -->
+      <div *ngIf="name.invalid" class="text-danger">
+        Name is required.
+      </div>
+
+      <label class="fw-semibold">Email:</label>
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required class="ps-2" />
+      <div *ngIf="email.invalid && email.touched" class="text-danger">
+        Valid email is required.
+      </div>
+
+      <label class="fw-semibold">Password:</label>
+      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required minlength="5"
+        class="ps-2" />
+      <div *ngIf="password.invalid && password.touched" class="text-danger">
+        Password must be at least 5 characters.
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button class="w-50 py-1 rounded-2 bg-white mt-2" type="submit" [disabled]="registerForm.invalid">
+          Register
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

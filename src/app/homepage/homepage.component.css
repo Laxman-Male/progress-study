@@ -1,0 +1,453 @@
+#mainDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: darkblue;
+    position: sticky;
+    color: white;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+    height: 50px;
+ 
+}
+#create_plan{
+  /* border: 2px solid red; */
+ height: 10px;
+ text-decoration: none;
+ color: white;
+  
+}
+#create_plan:hover{
+  color: black;
+}
+#option{
+  border: 2px solid red;
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-end;
+ height: 250px;
+ width: 100px;
+ }
+ #option li:hover{
+  border: 2px solid black;
+  background-color: none;
+ }
+ 
+ #topImg{
+  width: 500px;
+ }
+ul{
+    max-width: 100%;
+    width: 60%;
+    list-style: none;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    margin-bottom: 0px;
+ 
+    
+}
+ul div{
+    padding: 6px 10px;
+    color: wheat;
+ }
+ul li{
+    padding: 6px 10px;
+    color: wheat;
+    margin: 0px;
+}
+ul li:hover{
+    background-color: white;
+     border-radius: 3px;
+     color: black;
+}
+#CatchLine{
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    /* border: 2px solid red; */
+    align-items: center;
+    justify-content: center;
+}
+ 
+#mainTitle{
+font-size: 80px;
+   animation: moveUp 2s ease-out  ; 
+}
+#mainTitle2{
+    font-size: 70px;
+    animation: moveUp2 2s ease-out  ; 
+     animation-delay: 0s;
+
+}
+@keyframes moveUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* starts 50px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* ends in normal position */
+  }
+}
+@keyframes moveUp2 {
+  0% {
+    opacity: 0;
+    transform: translateY(50px); /* starts 50px below */
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(40px); /* starts 40px below */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* ends in normal position */
+  }
+}
+ #studyImg{
+    /* border: 2px solid red; */
+    mix-blend-mode: darken;
+    z-index: -1;
+ }
+ #para{
+
+    font-size: 22px;
+  
+  }
+  #paraDiv{
+      text-align: center;
+   }
+#Tracking_btn{
+    cursor: pointer;
+}
+#cardsSection{
+ display: flex;
+ justify-content: center;
+ gap: 30px;
+ padding: 30px ;
+}
+.cards{
+    border: 2px solid lightblue;
+    width: 270px;
+    padding: 2px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 3px gray;
+ }
+#img1{
+    width: 240px;
+       height: 190px;
+    max-width: 280px;
+    margin-bottom: 10px;
+}
+#img2{
+   width: 240px;
+   height: 190px;
+    max-width: 280px;
+    margin-bottom: 10px;
+}
+#img3{
+   width: 240px;
+   height: 190px;
+    max-width: 280px;
+    margin-bottom: 10px;
+}
+.desc{
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 20px;
+}
+#howWorkPara1{
+  border: 2px solid lightblue;
+  box-shadow: 2px 2px 2px gray;
+  border-radius: 10px;
+  max-width: 600px;
+ 
+  
+}
+
+
+#howWorkPara2{
+  border: 2px solid lightblue;
+  box-shadow: 2px 2px 2px gray;
+    border-radius: 10px;
+      max-width: 600px;
+
+ 
+}
+#howWorkPara3{
+  border: 2px solid lightblue;
+  box-shadow: 2px 2px 2px gray;
+    border-radius: 10px;
+      max-width: 600px;
+
+
+}
+#howWorkPara4{
+  border: 2px solid lightblue;
+  box-shadow: 2px 2px 2px gray;
+    border-radius: 10px;
+      max-width: 600px;
+
+
+}
+#howItWorkSection{
+  /* border: 2px solid black; */
+  display: grid;
+grid-template-columns: 50% 50%;
+justify-content: center;
+align-items: center;
+padding: 30px 30px;
+}
+#howWorkLine{
+  /* font-size: 3.2rem; */
+  /* font-weight: 500; */
+}
+#howImg{
+  width: 650px;
+  mix-blend-mode: multiply;
+}
+#howImgDiv{
+  z-index: -1;
+}
+footer{
+  display: flex;
+  justify-content: space-around;
+}
+#formSection{
+  /* max-width: 400px; */
+}
+#formSection form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+  /* max-width: 400px; */
+}
+#userValue{
+ display: flex;
+ flex-direction: column;
+ max-height: 300px;
+ gap: 10px;
+}
+#formSection form input{
+  border-radius: 5px;
+  }
+#formSection form label{
+  color: black;
+  }
+
+#formSection form textarea{
+  border-radius: 5px;
+}
+#formSection form button{
+  border-radius: 5px;
+  width: 80px;
+}
+#aboutSection p{
+  color: black;
+}
+#rights{
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+   margin: auto;
+}
+ .cardText{
+  margin: 0px;
+  font-weight: 700;
+  font-size: 20px;
+ }
+ 
+@media (max-width:1250px) {
+  #topImg{
+  width: 400px;
+ }
+ #howImg{
+  width: 500px;
+ }
+}
+@media (max-width:1000px) {
+  #CatchLine{
+    display: flex;
+    flex-direction: column;
+  }
+  #topImg{
+    width: 500px;
+  }
+  #howImg{
+  width: 400px;
+ }
+}
+@media (max-width:850px) {
+  #CatchLine{
+    display: flex;
+    flex-direction: column;
+  }
+  #topImg{
+    width: 400px;
+  }
+  .cards{
+  /* width: 700px; */
+  border: 2px solid lightblue ;
+  box-shadow: 2px 2px 3px gray;
+  width: 200px;
+}
+#img1{
+  width: 150px;
+  height: 100px;
+}
+#img2{
+  width: 150px;
+  height: 100px;
+}
+#img3{
+  width: 150px;
+  height: 100px;
+}
+ .cardText{
+  margin: 0px;
+  font-weight: 700;
+  font-size: 15px;
+ }
+ 
+  #howImg{
+  width: 500px;
+ }
+ #howItWorkSection{
+  display: flex;
+  flex-direction: column;
+
+ }
+ #howWorkPara1{
+  width: 600px;
+  }
+ footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ #aboutSection{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  line-height: 10px;
+ }
+ #userValue{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ }
+ #userValue textarea{
+  width: 390px;
+ }
+}
+
+
+@media (max-width:750px) {
+  #CatchLine{
+    padding: 10px;
+    
+   display: flex;
+   flex-direction: column;
+   /* width: 700px; */
+}
+ 
+  #img2{
+  width: 250px;
+  height: 190px;
+}
+#img3{
+  width: 250px;
+  height: 190px;
+}
+
+}
+
+@media (max-width:720px) {
+  #mainDiv{
+    width: 720px;
+  }
+  #CatchLine{
+    display: flex;
+    flex-direction: column;
+    width: 720px;
+  }
+  #topImg{
+    width: 350px;
+  }
+  #cardsSection{
+    display:flex;
+    flex-direction: column;
+    width: 720px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .cards{
+    width: 100%;
+    padding: 10px 5px;
+  }
+  #img1{
+    width: 250px;
+    height: 190px;
+   }
+  #howImg{
+  width: 450px;
+ }
+ #howItWorkSection{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  justify-content: center;
+  align-items: center;
+
+ }
+ #howWorkPara1{
+  width: 500px;
+  }
+  #ready{
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 720px;
+  }
+ footer{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+  /* width: 600px; */
+  /* background-color: red; */
+  width: 720px;
+ }
+ #aboutSection{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  line-height: 10px;
+  }
+ #userValue{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ }
+ #userValue textarea{
+  width: 390px;
+ }
+ #rights{
+  width: 720px;
+ }
+ 
+}

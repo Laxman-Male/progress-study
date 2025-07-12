@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
 body{
-    background-image: linear-gradient(rgb(9, 9, 194), white);
-    height: 100vh;
+    /* background-image: linear-gradient(rgb(9, 9, 194), white); */
+    /* background-image: linear-gradient(white,rgb(65, 65, 249));
+    
+    background-repeat: no-repeat; */
+  /* background: linear-gradient(135deg, #f0f2f5 0%, #e0e5ec 100%); */
+
+    background-color: rgb(224, 243, 249);
+    height: auto;
+    width:auto;
+
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -1,0 +1,36 @@
+.planBox{
+    border: 2px solid gray;
+
+    height: 60px;
+    width: 80%;
+    border-radius: 8px;
+    background-color: rgb(55, 116, 249);
+    color: white;
+    padding: 2px 5px;
+}
+.planBox:hover{
+    cursor: pointer;
+}
+.planBox p{
+    line-height: 1;
+    margin: 3px;
+}
+
+#mainPlanBox{
+    border: 2px solid red;
+    border-radius:10px;
+    max-height: 500px;
+    height: 100%;
+    max-width: 500px;
+    width: 90%;
+      overflow: auto;
+   }
+#mainOuterPlan{
+    border: 5px solid blue;
+    height: 100vh;
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
