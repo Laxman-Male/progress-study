@@ -1,0 +1,244 @@
+<div class="d-flex align-items-center justify-content-center flex-column mb-3">
+    <h2> Plan 🖊️</h2>
+    <div id="title">
+        <h3>{{data.title}} </h3>
+    </div>
+
+</div>
+<div class="d-flex flex-column align-items-center justify-content-center ">
+
+    <!-- <p>  {{weekCount.count}} </p> -->
+    <div *ngIf="weekCount" id="weekCountArrList">
+       
+       
+        <!-- <p class="w"> {{weekCount.count}}</p> -->
+        <!-- <div id="week" *ngFor="let i of weekCountArr; let idx=index" (click)="weekReward(idx)">
+            <span *ngIf="completedWeek" id="weekColumn" >
+                
+                <button *ngIf="((i*7) <completedWeek.time)">
+                    <p id="doneWeek"  >Week++ {{i}} </p>
+                </button>
+                <span>
+                    <button class="w" [disabled]="((i*7) >completedWeek.time)" > 
+                     <p id=" "  >Week {{i}} </p>    
+                    </button>
+                    
+                </span>
+            </span>
+        </div> -->
+
+        <span *ngIf="completedWeek" id="weekColumn">
+  <ng-container *ngFor="let w of weekCountArr; let i = index">
+    <button 
+      [disabled]="(i + 1) * 7 > completedWeek.time" 
+      [ngClass]="{
+        'done': i+1 <= completedWeek.complete,
+        'locked': (i + 1) * 7 > completedWeek.time
+      }"
+       (click)="weekReward(i)"
+    >
+      Week {{ i + 1 }}
+    </button>
+  </ng-container>
+  <a   routerLinkActive="active" routerLink="/questions" class="done">
+
+          Test for REWARD
+        
+    </a>
+</span>
+
+                <!-- <div class="planBox"  *ngFor="let t of titleArr; let idx=index;" (click)="SeePlanDescription(idx)"> -->
+
+    </div>
+     
+    <p class="m-0 text-danger"> Note: After 7 days click to respective Week to get REWARD </p>
+    <div id="workFlowOutsideDiv1">
+
+        <div id="workFlow1" class="fs-5">
+            <div *ngIf="data" class="d-flex flex-column justify-content-center ">
+
+                <!-- <p><b>Title:-</b>   {{data.title}}</p> -->
+                <p> <b>Intro:-</b> {{data.introduction}}</p>
+                <p> <b>Overall Strategy:- </b> {{data.overallStrategy}}</p>
+                <!-- <p> {{studyPlanData.weeklyBreakdown[0]}}</p> -->
+
+                <div *ngFor="let weekD of data.weeklyBreakdown">
+
+                    <p> <b> Weekly Breakdown:</b> </p>
+                    <ul>
+                        <li class="fs-3"> <b> {{weekD.week}} </b> </li>
+                        <li class="fs-5"> {{weekD.topic}} </li>
+                        <li> <b class="fs-4">Resources:</b> </li>
+                        <ul *ngFor="let res of weekD.resources">
+                            <li> <a [href]="res" target="_blank" id="resLink"> [{{res}}] </a> </li>
+                        </ul>
+                        <li> <b class="fs-4"> Activities</b> </li>
+                        <ul *ngFor="let act of weekD.activities">
+                            <li class="fs-5"> <a [href]="act" target="_blank"> {{act}} </a> </li>
+                        </ul>
+                        <ul *ngFor="let daily of weekD.dailyBreakdown">
+                            <li class="fs-4 list-unstyled"> <b>🔷 {{daily.day}} </b> </li>
+                            <li> <b class="fs-4">Description:</b> </li>
+                            <ul *ngFor="let des of daily.description">
+                                <li class="fs-5"> {{des}} </li>
+                            </ul>
+                            <li> <b class="fs-4">Why to learn: </b> </li>
+                            <ul *ngFor="let why of daily.whyToLearn">
+                                <li class="fs-5"> {{why}} </li>
+                            </ul>
+                            <ul>
+                                <li> <b class="fs-4"> Revision:- </b> </li>
+                                <ul>
+
+                                    <li class="fs-5"> {{daily.revision}} </li>
+                                </ul>
+                            </ul>
+                        </ul>
+                    </ul>
+                </div>
+                <p> {{data.forNextTopic}} </p>
+                <p> {{data.finalReview}} </p>
+                <p> {{data.motivationMessage}} </p>
+            </div>
+        </div>
+    </div>
+    <p> dsfadfads </p>
+    <!-- <p> {{response.title}} </p> -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+{
+ --   "title": "Linked List in 5 Days",
+  --  "finalReview": "After completing this five-day plan, you will have a solid foundation in linked lists.  Remember to revisit the concepts periodically to strengthen your understanding.",
+    "forNextTopic": "If you need more time, focus intensely on the remaining problems you are stuck on. If you finish early, consider exploring doubly linked lists, but only after fully grasping singly linked lists.",
+  --  "introduction": "This plan provides a focused approach to learning linked lists in data structures and algorithms.  We'll build a strong foundational understanding in five days, dedicating two hours each day.  This plan emphasizes depth over breadth, ensuring you grasp core concepts thoroughly before moving on.",
+   -- "overallStrategy": "This plan follows a step-by-step approach. Each day focuses on a specific aspect of linked lists, building upon the previous day's learning.  Daily revision and practical exercises solidify understanding. We’ll use visual aids and simple examples to make the learning process smooth and efficient.",
+    "weeklyBreakdown": [
+        {
+            "topic": "Introduction to Linked Lists and Basic Operations",
+            "dayRange": "Week 1",
+            "resources": [
+                "https://www.geeksforgeeks.org/data-structures/linked-list/",
+                "https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithm.htm",
+                "https://visualgo.net/en/list"
+            ],
+            "activities": [
+                "Read the introductory materials.",
+                "Draw diagrams to represent linked lists.",
+                "Work through examples of creating, inserting, and deleting nodes."
+            ],
+            "dailyBreakdown": [
+                {
+                    "day": "Day 1",
+                    "revision": "Draw a few singly linked lists and label their nodes and pointers.",
+                    "whyToLearn": [
+                        "Understanding linked lists is a fundamental building block in many advanced data structures and algorithms.",
+                        "Linked lists are crucial for dynamic memory management.",
+                        "Linked lists are used in various applications, including implementing stacks and queues."
+                    ],
+                    "description": [
+                        "What are linked lists?",
+                        "Types of Linked Lists (Singly, Doubly, Circular - Focus on Singly for now)",
+                        "Nodes and their structure (data and next pointer)",
+                        "Representing linked lists visually"
+                    ]
+                },
+                {
+                    "day": "Day 2",
+                    "revision": "Write code to create a linked list and insert a few nodes.",
+                    "whyToLearn": [
+                        "Mastering insertion is critical for dynamic data manipulation.",
+                        "Traversing is the basis for searching, updating and deleting nodes."
+                    ],
+                    "description": [
+                        "Creating a linked list",
+                        "Insertion at the beginning, middle, and end",
+                        "Traversing a linked list",
+                        "Simple C++/Python code examples (choose one) focusing on creation and insertion."
+                    ]
+                }
+            ]
+        },
+        {
+            "topic": "Deletion and Searching in Linked Lists",
+            "dayRange": "Week 1",
+            "resources": [
+                "https://www.geeksforgeeks.org/deletion-in-linked-list/",
+                "https://www.programiz.com/dsa/linked-list-deletion"
+            ],
+            "activities": [
+                "Practice deleting nodes from the beginning, middle, and end.",
+                "Implement linear search in a linked list.",
+                "Visualize search operations step-by-step."
+            ],
+            "dailyBreakdown": [
+                {
+                    "day": "Day 3",
+                    "revision": "Write code to delete nodes from a linked list. Try all cases.",
+                    "whyToLearn": [
+                        "Deletion is fundamental for maintaining data integrity.",
+                        "Efficient deletion techniques are essential for optimal performance."
+                    ],
+                    "description": [
+                        "Deletion from the beginning, middle, and end of a linked list",
+                        "Handling edge cases (empty list, deleting the only node)",
+                        "Code examples demonstrating deletion (C++/Python)"
+                    ]
+                },
+                {
+                    "day": "Day 4",
+                    "revision": "Implement linear search in your linked list code. Analyze its behavior for various search values.",
+                    "whyToLearn": [
+                        "Searching is essential for retrieving specific data.",
+                        "Understanding time complexity is key to evaluating algorithm efficiency."
+                    ],
+                    "description": [
+                        "Searching for a node with a given value",
+                        "Linear search implementation in a linked list",
+                        "Code example of linear search",
+                        "Time complexity analysis of linear search"
+                    ]
+                }
+            ]
+        },
+        {
+            "topic": "Recap and Practice",
+            "dayRange": "Week 1",
+            "resources": [
+                "https://leetcode.com/problems/linked-list-cycle/"
+            ],
+            "activities": [
+                "Solve problems involving linked lists from online resources (GeeksForGeeks, LeetCode, HackerRank – choose easy/medium problems)",
+                "Review all concepts learned in the previous days.",
+                "Try to implement a few linked list operations without referring to notes."
+            ],
+            "dailyBreakdown": [
+                {
+                    "day": "Day 5",
+                    "revision": "Review your notes and code, and practice by doing more examples and problems",
+                    "whyToLearn": [
+                        "Reinforce your understanding through practice.",
+                        "Develop problem-solving skills."
+                    ],
+                    "description": [
+                        "Complete review of linked list concepts (nodes, insertion, deletion, traversal, search)",
+                        "Practice problems: focus on understanding, not speed.",
+                        "Debugging and troubleshooting your own code."
+                    ]
+                }
+            ]
+        }
+    ],
+    "motivationMessage": "Congratulations! You've successfully covered the fundamentals of linked lists. With consistent effort and practice, you'll master this essential data structure. Keep learning and keep coding!"
+}
+-->

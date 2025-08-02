@@ -1,0 +1,21 @@
+<div id="questionDiv">
+<form *ngIf="mcq">
+
+   
+        <p> {{mcq.mcq | json }}</p>
+        <ol type="A">
+       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="A" >  <label> {{ 'A'}}: {{ mcq.options['A'] }} </label></p>
+       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="B">  <label>  {{ 'B'}}: {{ mcq.options['B'] }} </label></p>
+       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="C">  <label> {{ 'C'}}: {{ mcq.options['C'] }} </label></p>
+       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="D">  <label>  {{ 'D'}}: {{ mcq.options['D'] }}  </label></p>
+          
+        </ol>
+ <div id="btnGrp">
+
+     <button type="submit" (click)="SubmitAns()" > Submit </button>
+     <button type="reset"> Reset  </button>
+     <button (click)="SkipQuestion()" > Skip  </button>
+    </div>
+</form>
+
+</div>

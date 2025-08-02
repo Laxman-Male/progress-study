@@ -1,12 +1,15 @@
-<div id="backDiv">
+<router-outlet></router-outlet>
+<div *ngIf="showProfileContent">
 
-    <p id="backBtn">
-        <a routerLinkActive="active" routerLink="" class="text-decoration-none">
-            🔙
-        </a>
-    </p>
+    <div  id="backDiv">
+        
+        <p id="backBtn">
+            <a routerLinkActive="active" routerLink="" class="text-decoration-none">
+                🔙
+            </a>
+        </p>
 </div> 
-<div id="mainDiv">
+<div  id="mainDiv">
     
     <div id="userData">
         <img src="/profileImg.png" width="70px" class="rounded-3 bg-light">
@@ -23,4 +26,4 @@
     </div>
     <p class="btn btn-danger" (click)="LogOut()" > Log Out</p>
 </div>
-<router-outlet></router-outlet>
+</div>

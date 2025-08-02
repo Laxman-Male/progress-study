@@ -3,134 +3,156 @@ import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CreatePlanService } from '../services/create-plan.service';
 import { CommonModule } from '@angular/common';
+import { GoStudyPlanGapFourDays, GoStudyPlanGapWeek, GoStudyPlanWeekGapOne } from '../Models/weeks';
 
 
-interface dailyBreakForGapOne {
-  day: string;
-  description:string[]
-  whyToLearn:string[]
-  revision: string
-}
+// interface dailyBreakForGapOne {
+//   day: string;
+//   description:string[]
+//   whyToLearn:string[]
+//   revision: string
+// }
 
-interface weeklyBrdeakdownGapOne {
-  dayRange: string;
-  topic: string;
-  resources:string[];
-  activities:string[];
-  dailyBreakdown: dailyBreakForGapOne[]
+// interface weeklyBrdeakdownGapOne {
+//   dayRange: string;
+//   topic: string;
+//   resources:string[];
+//   activities:string[];
+//   dailyBreakdown: dailyBreakForGapOne[]
 
-}
- export interface GoStudyPlanWeekGapOne {
-  title: string;
-  introduction: string;
-  overallStrategy: string;
-  weeklyBreakdown: weeklyBrdeakdownGapOne[];  
-  forNextTopic: string;
-  finalReview: string;
-  motivationMessage: string;
-}
-const FutureTime=  60*60 * 1000 ;   //first 60 for minutes,- seconds -miniseconds-no of hours
+// }
+//  export interface GoStudyPlanWeekGapOne {
+//   title: string;
+//   introduction: string;
+//   overallStrategy: string;
+//   weeklyBreakdown: weeklyBrdeakdownGapOne[];  
+//   forNextTopic: string;
+//   finalReview: string;
+//   motivationMessage: string;
+// }
+const FutureTime = 60 * 60 * 1000;   //first 60 for minutes,- seconds -miniseconds-no of hours
 
 @Component({
   selector: 'app-create-plan',
   //In standalone Angular components, not using NgModule
- standalone: true,
-  imports: [RouterLink,RouterLinkActive,CommonModule],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './create-plan.component.html',
   styleUrl: './create-plan.component.css'
 })
 export class CreatePlanComponent implements OnInit {
-  result =0;
-  isLoggedIn: boolean=false
-  planPage={
-    subject:'',
-    topic:'',
-    days:'',
-    hours:'',
+  result = 0;
+  isLoggedIn: boolean = false
+  planPage = {
+    subject: '',
+    topic: '',
+    days: '',
+    hours: '',
   }
-    weekNumber:number=0
-    getPlan:boolean=true;
-    isGenerated:boolean=false;
-    getPlanCount:number=0;
-    
-  constructor(private createPlan: CreatePlanService){}
-  
+  weekNumber: number = 0
+  getPlan: boolean = true;
+  isGenerated: boolean = false;
+  getPlanCount: number = 0;
+  weekCount: number = 0;
+  daysEnteredByUser: number = 1;
+
+  constructor(private createPlan: CreatePlanService) { }
+
   studyPlanData: GoStudyPlanWeekGapOne | null = null
- 
-   ngOnInit(): void {
-    const token= localStorage.getItem('token')
-    if(token!=null){
-      this.isLoggedIn=true
+  // studyPlanData: GoStudyPlanWeekGapOne | GoStudyPlanGapFourDays | GoStudyPlanGapWeek | null = null
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token')
+    if (token != null) {
+      // localStorage.removeItem('token')
+      this.isLoggedIn = true
     }
-    else{
-      this.isLoggedIn=false
+    else {
+      this.isLoggedIn = false
     }
- const storedPlan = localStorage.getItem("userPlan2")
-  if (storedPlan){
-    try{
-       
-      this.studyPlanData= JSON.parse(storedPlan) as GoStudyPlanWeekGapOne
-    }catch(e){
-      console.log("error in getting",e)
+    const storedPlan = localStorage.getItem("userPlanbeforeSave")
+    if (storedPlan) {
+      try {
+
+        this.studyPlanData = JSON.parse(storedPlan) as GoStudyPlanWeekGapOne
+      } catch (e) {
+        console.log("error in getting", e)
+      }
     }
-  }
- 
-  console.log("count->",this.getPlanCount)
+
+    console.log("count->", this.getPlanCount)
 
   }
- 
-  
-  
-  GetPlanBtn():void {
-    const subject= document.getElementById('subject') as HTMLInputElement
-    const topic= document.getElementById('topic') as HTMLInputElement
-    const days= document.getElementById('days') as HTMLInputElement
-    const hours= document.getElementById('hours') as HTMLInputElement
-    const GetPlan= document.getElementById('GetPlan') as HTMLInputElement
+
+
+
+  GetPlanBtn(): void {
+    const subject = document.getElementById('subject') as HTMLInputElement
+    const topic = document.getElementById('topic') as HTMLInputElement
+    const days = document.getElementById('days') as HTMLInputElement
+    const hours = document.getElementById('hours') as HTMLInputElement
+    const GetPlan = document.getElementById('GetPlan') as HTMLInputElement
     // var ResponseData: null
-     this.getPlanCount= this.getPlanCount+1;
+    this.getPlanCount = this.getPlanCount + 1;
 
-
-    if(this.getPlanCount>2){
-      let nowTime= Date.now();
-      localStorage.setItem("NowTime",JSON.stringify(nowTime))
+    this.daysEnteredByUser = Number(days.value);
+    if (this.getPlanCount > 20) {
+      let nowTime = Date.now();
+      localStorage.setItem("NowTime", JSON.stringify(nowTime))
       alert("extended limit! You can generate 5 Plan try again after 1 Hour")
-      setTimeout(()=>{
-    this.getPlanCount=0
-    this.getPlan=true
-    this.isGenerated=false
-      },FutureTime)
+      setTimeout(() => {
+        this.getPlanCount = 0
+        this.getPlan = true
+        this.isGenerated = false
+      }, FutureTime)
       //need to do this for a day
     }
 
-      console.log("count->",this.getPlanCount)
+    console.log("count->", this.getPlanCount)
 
-    console.log("input from user",subject.value, topic.value, days.value)
-    this.planPage.subject= subject.value
-    this.planPage.topic= topic.value
-    this.planPage.days=days.value
-    this.planPage.hours=hours.value
-    if((this.planPage.subject || this.planPage.topic || this.planPage.days || this.planPage.hours)==""){
+    console.log("input from user", subject.value, topic.value, days.value)
+    this.planPage.subject = subject.value
+    this.planPage.topic = topic.value
+    this.planPage.days = days.value
+    this.planPage.hours = hours.value
+    if ((this.planPage.subject || this.planPage.topic || this.planPage.days || this.planPage.hours) == "") {
       alert("Enter values")
       return
     }
-    console.log("--",this.planPage.subject, this.planPage.days,this.planPage.hours)
-    this.getPlan=false
-    this.isGenerated=true;
+    console.log("--", this.planPage.subject, this.planPage.days, this.planPage.hours)
+    this.getPlan = false
+    this.isGenerated = true;
     this.createPlan.GetPlan(this.planPage).subscribe({
-      next:(response:GoStudyPlanWeekGapOne)=>{
-        this.studyPlanData = response
-         
-        console.log("plan response->1st",response)
-        console.log("plan response->2nd",this.studyPlanData)
-        localStorage.setItem("userPlan2",JSON.stringify(this.studyPlanData))
-      }, 
-      error:(error)=>{
-        console.log("get plan error->x",error)
+      next: (response) => {
+        let tt;
+        if(this.daysEnteredByUser<=45){
+          this.studyPlanData = response as GoStudyPlanWeekGapOne
+          // this.studyPlanData.weeklyBreakdown1
+          const a = this.studyPlanData.weeklyBreakdown;
+          this.weekCount = a.length
+          tt = this.studyPlanData.title
+        }
+        else if(this.daysEnteredByUser >45 && this.daysEnteredByUser <100){
+          // this.studyPlanData=response as GoStudyPlanGapFourDays;
+        }
+        else{
+          // this.studyPlanData=response as GoStudyPlanGapWeek;
+        }
+        console.log(this.weekCount)
+        console.log("plan response->1st", response)
+        console.log("plan response->2nd", this.studyPlanData)
+        localStorage.setItem("userPlanbeforeSave", JSON.stringify(this.studyPlanData))
+        localStorage.setItem("weekCount", JSON.stringify(this.weekCount))
+        // let tt = this.studyPlanData.title
+        console.log(tt)
+        localStorage.setItem("title", JSON.stringify(tt))
+      },
+      error: (error) => {
+        console.log("get plan error->x", error)
       }
-      
 
-      
+
+
 
     })
     // this.getPlanCount +=1
@@ -146,42 +168,47 @@ export class CreatePlanComponent implements OnInit {
     // }
 
   }
-  ClearPlan():void{
+  ClearPlan(): void {
     // alert("do you want to delete plan")
     // localStorage.removeItem("userPlan")
-   const GetPlan= document.getElementById('GetPlan') as HTMLInputElement
-   const workFlowDiv= document.getElementById('workFlowOutsideDiv') as HTMLInputElement
-   workFlowDiv.innerHTML=""
+    const GetPlan = document.getElementById('GetPlan') as HTMLInputElement
+    const workFlowDiv = document.getElementById('workFlowOutsideDiv') as HTMLInputElement
+    workFlowDiv.innerHTML = ""
     // GetPlan.style.backgroundColor="blue";
     // GetPlan.style.color="white"
     // GetPlan.style.transformStyle="none"
     // GetPlan.style.cursor="pointer"
-     this.getPlan=true;
-     
+    this.getPlan = true;
 
-     console.log(this.getPlan)
-     this.isGenerated=false;
-     localStorage.removeItem("userPlan2")
+
+    console.log(this.getPlan)
+    this.isGenerated = false;
+    localStorage.removeItem("userPlan2")
+    localStorage.removeItem("userPlanbeforeSave")
+    //  localStorage.clear()
   }
-  SavePlan():void{
+  SavePlan(): void {
     // this.createPlan.SavePlanByUser()
     console.log("saved successfully")
-    localStorage.setItem("userplan2",JSON.stringify(this.weeklyBreakdown))
+    localStorage.setItem("userplan2", JSON.stringify(this.studyPlanData))
     this.createPlan.SavePlanByUser().subscribe({
-      next:(response: GoStudyPlanWeekGapOne)=>{
+      next: (response: GoStudyPlanWeekGapOne) => {
         console.log(response)
         localStorage.removeItem("userPlan2");
-           const workFlowDiv= document.getElementById('workFlowOutsideDiv') as HTMLInputElement
-           workFlowDiv.innerHTML=""
-      }
-  
-  
-    })
-        this.getPlan=true;
-     
 
-     console.log(this.getPlan)
-     this.isGenerated=false;
+        const workFlowDiv = document.getElementById('workFlowOutsideDiv') as HTMLInputElement
+        workFlowDiv.innerHTML = ""
+      }
+
+
+    })
+    this.getPlan = true;
+
+
+    console.log(this.getPlan)
+    this.isGenerated = false;
+    localStorage.removeItem("userPlan2")
+    localStorage.removeItem("userPlanbeforeSave")
 
 
   }
@@ -191,121 +218,121 @@ export class CreatePlanComponent implements OnInit {
   //   this.result=1;
   // }
 
-  weeklyBreakdown={
-  "title": "Go Programming for Absolute Beginners (12 Days)",
-  "introduction": "This study plan provides a structured approach to learning the fundamentals of Go programming in 12 days, dedicating 2 hours per day.  We will focus on depth rather than breadth, ensuring a strong foundational understanding.  Each day includes specific learning goals, resources, and activities designed for absolute beginners.  Consistent effort and daily revision are key to success.",
-  "overallStrategy": "This plan focuses on building a solid foundation in Go. We'll start with the basics of setting up your environment and writing simple programs, then progress to understanding variables, data types, control structures, and functions. By the end, you'll be able to write basic Go programs and understand the fundamental building blocks of the language.",
-  "weeklyBreakdown": [
-    {
-      "dayRange": "Days 1-3",
-      "topic": "Setting up Go Environment and Basic Syntax",
-      "resources": ["https://go.dev/doc/tutorial/getting-started", "https://go.dev/tour/welcome/1"],
-      "activities": ["Install Go, write 'Hello, World!' program, understand basic program structure, comments, and package declaration."],
-      "dailyBreakdown": [
-        {
-          "day": "Day 1",
-          "description": ["Install Go on your system (Windows, macOS, or Linux). Verify installation by running `go version` in your terminal."],
-          "whyToLearn": ["Essential for writing and running Go programs."],
-          "revision": "Run `go version` again to confirm installation."
-        },
-        {
-          "day": "Day 2",
-          "description": ["Write your first Go program ('Hello, World!'). Understand the structure of a Go program (package declaration, `main` function, `fmt.Println`). Practice adding comments."],
-          "whyToLearn": ["To understand the basic structure and syntax of a Go program."],
-          "revision": "Re-run your 'Hello, World!' program. Try adding a comment to explain a part of the code."
-        },
-        {
-          "day": "Day 3",
-          "description": ["Understand variables in Go: declaration, types (int, float64, string, bool), and assignment. Practice using variables in simple programs. Experiment with different variable types."],
-          "whyToLearn": ["Variables are fundamental to storing and manipulating data within your programs."],
-          "revision": "Write a small program that uses variables of different types and prints their values."
-        }
-      ]
-    },
-    {
-      "dayRange": "Days 4-7",
-      "topic": "Data Types, Operators and Control Flow",
-      "resources": ["https://go.dev/tour/basics/1", "https://go.dev/doc/effective_go#blank"],
-      "activities": ["Explore Go's built-in data types, operators, and conditional statements. Work with loops and practice writing programs using these concepts."],
-      "dailyBreakdown": [
-        {
-          "day": "Day 4",
-          "description": ["Learn about different data types in Go (int, float, string, bool, arrays, slices). Practice declaring and initializing variables of these types."],
-          "whyToLearn": ["To understand how to represent and manipulate different kinds of data."],
-          "revision": "Write examples using various data types. What happens if you try to mix data types?"
-        },
-        {
-          "day": "Day 5",
-          "description": ["Understand arithmetic, comparison, and logical operators in Go. Practice using them in expressions and conditions."],
-          "whyToLearn": ["Operators are the tools to perform calculations and comparisons in your programs."],
-          "revision": "Create small programs involving arithmetic and logical operations, and test the results."
-        },
-        {
-          "day": "Day 6",
-          "description": ["Master conditional statements (if, else if, else) and practice writing programs with conditional logic."],
-          "whyToLearn": ["To write programs that respond differently based on conditions."],
-          "revision": "Write a program to check if a number is even or odd."
-        },
-        {
-          "day": "Day 7",
-          "description": ["Learn about loops (for loop). Practice writing programs that iterate over arrays, slices and ranges."],
-          "whyToLearn": ["Loops allow you to repeat blocks of code."],
-          "revision": "Write a program to print numbers 1 to 10 using a `for` loop."
-        }
-      ]
-    },
-    {
-      "dayRange": "Days 8-11",
-      "topic": "Functions and Packages",
-      "resources": ["https://go.dev/tour/basics/4","https://go.dev/pkg/fmt/"],
-      "activities": ["Learn to define and use functions in Go.  Understand packages and how to use built-in packages such as `fmt` and `math`."],
-      "dailyBreakdown": [
-        {
-          "day": "Day 8",
-          "description": ["Learn the basics of functions in Go: function declaration, parameters, return values. Write simple functions that perform basic operations."],
-          "whyToLearn": ["Functions allow to break down complex programs into smaller, reusable modules."],
-          "revision": "Write a function to add two numbers, and another to calculate the average of two numbers."
-        },
-        {
-          "day": "Day 9",
-          "description": ["Understand the concept of packages in Go. Learn how to use the standard library's `fmt` package for input/output operations."],
-          "whyToLearn": ["Packages are essential for code reusability and organization."],
-          "revision": "Write a program that uses `fmt.Printf` to print formatted output."
-        },
-        {
-          "day": "Day 10",
-          "description": ["Explore more advanced features of functions, including multiple return values and variadic functions."],
-          "whyToLearn": ["To write flexible and reusable functions."],
-          "revision": "Write a function that returns both the sum and the difference of two numbers."
+  weeklyBreakdown = {
+    "title": "Go Programming for Absolute Beginners (12 Days)",
+    "introduction": "This study plan provides a structured approach to learning the fundamentals of Go programming in 12 days, dedicating 2 hours per day.  We will focus on depth rather than breadth, ensuring a strong foundational understanding.  Each day includes specific learning goals, resources, and activities designed for absolute beginners.  Consistent effort and daily revision are key to success.",
+    "overallStrategy": "This plan focuses on building a solid foundation in Go. We'll start with the basics of setting up your environment and writing simple programs, then progress to understanding variables, data types, control structures, and functions. By the end, you'll be able to write basic Go programs and understand the fundamental building blocks of the language.",
+    "weeklyBreakdown": [
+      {
+        "dayRange": "Days 1-3",
+        "topic": "Setting up Go Environment and Basic Syntax",
+        "resources": ["https://go.dev/doc/tutorial/getting-started", "https://go.dev/tour/welcome/1"],
+        "activities": ["Install Go, write 'Hello, World!' program, understand basic program structure, comments, and package declaration."],
+        "dailyBreakdown": [
+          {
+            "day": "Day 1",
+            "description": ["Install Go on your system (Windows, macOS, or Linux). Verify installation by running `go version` in your terminal."],
+            "whyToLearn": ["Essential for writing and running Go programs."],
+            "revision": "Run `go version` again to confirm installation."
+          },
+          {
+            "day": "Day 2",
+            "description": ["Write your first Go program ('Hello, World!'). Understand the structure of a Go program (package declaration, `main` function, `fmt.Println`). Practice adding comments."],
+            "whyToLearn": ["To understand the basic structure and syntax of a Go program."],
+            "revision": "Re-run your 'Hello, World!' program. Try adding a comment to explain a part of the code."
+          },
+          {
+            "day": "Day 3",
+            "description": ["Understand variables in Go: declaration, types (int, float64, string, bool), and assignment. Practice using variables in simple programs. Experiment with different variable types."],
+            "whyToLearn": ["Variables are fundamental to storing and manipulating data within your programs."],
+            "revision": "Write a small program that uses variables of different types and prints their values."
+          }
+        ]
+      },
+      {
+        "dayRange": "Days 4-7",
+        "topic": "Data Types, Operators and Control Flow",
+        "resources": ["https://go.dev/tour/basics/1", "https://go.dev/doc/effective_go#blank"],
+        "activities": ["Explore Go's built-in data types, operators, and conditional statements. Work with loops and practice writing programs using these concepts."],
+        "dailyBreakdown": [
+          {
+            "day": "Day 4",
+            "description": ["Learn about different data types in Go (int, float, string, bool, arrays, slices). Practice declaring and initializing variables of these types."],
+            "whyToLearn": ["To understand how to represent and manipulate different kinds of data."],
+            "revision": "Write examples using various data types. What happens if you try to mix data types?"
+          },
+          {
+            "day": "Day 5",
+            "description": ["Understand arithmetic, comparison, and logical operators in Go. Practice using them in expressions and conditions."],
+            "whyToLearn": ["Operators are the tools to perform calculations and comparisons in your programs."],
+            "revision": "Create small programs involving arithmetic and logical operations, and test the results."
+          },
+          {
+            "day": "Day 6",
+            "description": ["Master conditional statements (if, else if, else) and practice writing programs with conditional logic."],
+            "whyToLearn": ["To write programs that respond differently based on conditions."],
+            "revision": "Write a program to check if a number is even or odd."
+          },
+          {
+            "day": "Day 7",
+            "description": ["Learn about loops (for loop). Practice writing programs that iterate over arrays, slices and ranges."],
+            "whyToLearn": ["Loops allow you to repeat blocks of code."],
+            "revision": "Write a program to print numbers 1 to 10 using a `for` loop."
+          }
+        ]
+      },
+      {
+        "dayRange": "Days 8-11",
+        "topic": "Functions and Packages",
+        "resources": ["https://go.dev/tour/basics/4", "https://go.dev/pkg/fmt/"],
+        "activities": ["Learn to define and use functions in Go.  Understand packages and how to use built-in packages such as `fmt` and `math`."],
+        "dailyBreakdown": [
+          {
+            "day": "Day 8",
+            "description": ["Learn the basics of functions in Go: function declaration, parameters, return values. Write simple functions that perform basic operations."],
+            "whyToLearn": ["Functions allow to break down complex programs into smaller, reusable modules."],
+            "revision": "Write a function to add two numbers, and another to calculate the average of two numbers."
+          },
+          {
+            "day": "Day 9",
+            "description": ["Understand the concept of packages in Go. Learn how to use the standard library's `fmt` package for input/output operations."],
+            "whyToLearn": ["Packages are essential for code reusability and organization."],
+            "revision": "Write a program that uses `fmt.Printf` to print formatted output."
+          },
+          {
+            "day": "Day 10",
+            "description": ["Explore more advanced features of functions, including multiple return values and variadic functions."],
+            "whyToLearn": ["To write flexible and reusable functions."],
+            "revision": "Write a function that returns both the sum and the difference of two numbers."
 
-        },
-        {
-          "day": "Day 11",
-          "description": ["Practice using the `math` package for mathematical operations. Explore other standard library packages as needed."],
-          "whyToLearn": ["To leverage the power of pre-built functions for common tasks."],
-          "revision": "Write a program that calculates the square root of a number using the `math` package."
-        }
-      ]
-    },
-    {
-      "dayRange": "Day 12",
-      "topic": "Review and Consolidation",
-      "resources": [],
-      "activities": ["Review all the concepts learned so far. Work on a small project to consolidate your knowledge."],
-      "dailyBreakdown": [
-        {
-          "day": "Day 12",
-          "description": ["Review all concepts from the previous days. Create a small program integrating multiple concepts (variables, control flow, functions)."],
-          "whyToLearn": ["Consolidates learning and develops problem-solving skills."],
-          "revision": "Debug your program thoroughly and try to make it more efficient."
-        }
-      ]
-    }
-  ],
-  "forNextTopic": "If you have more time, I recommend focusing on data structures (arrays, slices, maps), more on standard libraries, and perhaps error handling.  Remember, focus is key! Let's master the fundamentals first.",
-  "finalReview": "Go through all the examples you've written and make sure you understand each line of code. Try to modify them and experiment with different variations.",
-  "motivationMessage": "Congratulations on completing this intensive Go programming course! You've built a strong foundation.  Remember, consistent practice is the key to mastering any programming language. Keep coding, keep exploring, and keep learning!"
-}
+          },
+          {
+            "day": "Day 11",
+            "description": ["Practice using the `math` package for mathematical operations. Explore other standard library packages as needed."],
+            "whyToLearn": ["To leverage the power of pre-built functions for common tasks."],
+            "revision": "Write a program that calculates the square root of a number using the `math` package."
+          }
+        ]
+      },
+      {
+        "dayRange": "Day 12",
+        "topic": "Review and Consolidation",
+        "resources": [],
+        "activities": ["Review all the concepts learned so far. Work on a small project to consolidate your knowledge."],
+        "dailyBreakdown": [
+          {
+            "day": "Day 12",
+            "description": ["Review all concepts from the previous days. Create a small program integrating multiple concepts (variables, control flow, functions)."],
+            "whyToLearn": ["Consolidates learning and develops problem-solving skills."],
+            "revision": "Debug your program thoroughly and try to make it more efficient."
+          }
+        ]
+      }
+    ],
+    "forNextTopic": "If you have more time, I recommend focusing on data structures (arrays, slices, maps), more on standard libraries, and perhaps error handling.  Remember, focus is key! Let's master the fundamentals first.",
+    "finalReview": "Go through all the examples you've written and make sure you understand each line of code. Try to modify them and experiment with different variations.",
+    "motivationMessage": "Congratulations on completing this intensive Go programming course! You've built a strong foundation.  Remember, consistent practice is the key to mastering any programming language. Keep coding, keep exploring, and keep learning!"
+  }
 
 
 
@@ -533,7 +560,7 @@ export class CreatePlanComponent implements OnInit {
   //     ]
   //   }
   // ]
- 
+
 
 
 
@@ -554,7 +581,7 @@ export class CreatePlanComponent implements OnInit {
 //                 "A Tour of Go (https://go.dev/tour/welcome/1)",
 //                 "Effective Go (https://go.dev/doc/effective_go)",
 //                 "Go by Example (https://gobyexample.com/)",
-//                 "Go Programming Blueprints (Book)" 
+//                 "Go Programming Blueprints (Book)"
 //             ],
 //             "activities": [
 //                 "Install Go, set up your environment.",
