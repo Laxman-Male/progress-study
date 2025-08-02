@@ -1,0 +1,29 @@
+ 
+#questionDiv{
+    border: 2px solid red;
+    display: flex;
+    max-width: 75%;
+    justify-content: center;
+    align-items: center;
+}
+#questionDiv form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+}
+#btnGrp{
+    display: flex;
+    gap: 20px;
+    
+}
+#btnGrp button{
+    border: 1px solid blue;
+   background-color: rgb(47, 47, 240);
+   color: white;
+   font-weight:bold;
+    border-radius: 8px;
+    width: 80px;
+    height: 40px;
+}

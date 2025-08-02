@@ -1,18 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ProfileService } from '../services/profile.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone:true,
-  imports: [RouterLink, RouterLinkActive,CommonModule,RouterOutlet],
+  imports: [RouterLink, RouterLinkActive,CommonModule,RouterOutlet], //NgIf is under CommonModule
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit   {
   toprofile:any=null
-  constructor( private profileservice: ProfileService, private router:Router ){}
+  showProfileContent = true;
+  constructor( private profileservice: ProfileService, private router:Router ){
+    
+ this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      this.showProfileContent = !event.url.includes('own/plan');
+    }
+     });
+
+  }
   ngOnInit():void{
    this.fetchUserProfile();
   }
@@ -39,7 +48,9 @@ export class ProfileComponent implements OnInit   {
   }
 
   SeeOwnWork(){
-    this.router.navigate(['own/plan/list'])
+    this.router.navigate(['profile/own/plan'])
+    // this.router.navigate(['own/plan/list']);
+
   }
 
 }

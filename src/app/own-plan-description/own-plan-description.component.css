@@ -1,0 +1,93 @@
+#workFlowOutsideDiv1{
+    border: 2px solid lightblue;
+    border-radius: 15px;
+    padding: 10px 20px;
+    display: flex;
+     align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width:100%;
+}
+#workFlow1{
+      max-height: 800px;
+      height: 80%;
+    overflow: auto;
+    /* max-width: 9/00px; */
+    width: 100%;
+}
+#title{
+    border: 2px solid blue;
+    padding: 4px 15px;
+    border-radius: 10px;
+}
+#title:hover{
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+}
+#week{
+    display: flex;
+    gap: 10px;
+}
+.w{
+    background-color: blue;
+    padding: 8px 10px;
+    color: white;
+    border-radius: 10px;
+    width: auto;
+}
+.w:hover{
+    cursor: pointer;
+    background-color: darkblue;
+    color: white;
+    transform: scale(1.1);
+}
+#weekCountArrList{
+    /* background-color: lightblue; */
+    padding: 5px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 8px;
+    width: 80%;
+    overflow: auto;
+}
+#doneWeek{
+    background-color: rgb(30, 188, 30);
+    padding: 8px 10px;
+    color: black;
+    border-radius: 10px;
+    width: auto;
+}
+#doneWeek:hover{
+    cursor: pointer;
+    background-color: darkgreen;
+    color: white;
+    transform: scale(1.1);
+}
+#weekColumn{
+    display: flex;
+    gap: 10px;
+}
+.done{
+        background-color: rgb(30, 188, 30);
+          padding: 8px 10px;
+    color: black;
+    border-radius: 10px;
+    width: auto;
+
+}
+ 
+.done:hover{
+     cursor: pointer;
+    background-color: darkgreen;
+    color: white;
+    transform: scale(1.1);
+}
+.locked{
+    background-color: gray;
+    padding: 8px 10px;
+    color: black;
+    border-radius: 10px;
+    width: auto;
+}

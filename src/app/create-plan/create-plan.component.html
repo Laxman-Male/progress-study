@@ -34,13 +34,17 @@
         <button *ngIf="isGenerated==true" id="generate"> Plan Generated! Clear or Save the Plan </button>
     </div>
 
+    
+    
     <hr class="text-black">
-    <div *ngIf="studyPlanData" >
+  
+    <div *ngIf="studyPlanData && daysEnteredByUser<=45">
         <div class="d-flex gap-3 align-items-center justify-content-center ">
 
             <div *ngFor="let weekNumber of studyPlanData.weeklyBreakdown" >
-                <p class="border border-primary p-2 rounded-2" id="weekCount"> {{weekNumber.dayRange}} </p>
+                <p class="border border-primary p-2 rounded-2" id="weekCount"> {{weekNumber.week}} </p>
             </div>
+           
         </div>
         <div class="d-flex align-items-center justify-content-center">
         <div id="workFlowOutsideDiv">
@@ -57,8 +61,8 @@
 
                         <p> <b> Weekly Breakdown:</b> </p>
                         <ul>
-                            <li class="fs-3"> <b> {{week.dayRange}} </b> </li>
-                            <li class="fs-5"> {{week.topic}} </li>
+                            <li class="fs-3"> <b> {{week.week}} </b> </li>
+                            <li class="fs-5"> {{week.topic[1]}} </li>
                             <li> <b class="fs-4">Resources:</b> </li>
                             <ul *ngFor="let res of week.resources">
                                 <li> <a [href]="res" target="_blank"  id="resLink"> [{{res}}] </a> </li>
@@ -95,6 +99,62 @@
         </div>
         </div>
     </div>
+
+
+<!-- 
+    <div *ngIf="studyPlanData && (daysEnteredByUser>45 && daysEnteredByUser <100)">
+        <div class="d-flex gap-3 align-items-center justify-content-center ">
+
+            <div *ngFor="let weekNumber of studyPlanData.weeklyBreakdown" >
+                <p class="border border-primary p-2 rounded-2" id="weekCount"> {{weekNumber.week}} </p>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+        <div id="workFlowOutsideDiv">
+
+            <div id="workFlow" class="fs-5">
+                <div *ngIf="studyPlanData" class="d-flex flex-column justify-content-center ">
+
+                    <p><b>Title:-</b>   {{studyPlanData.title}}</p>
+                    <p> <b>Intro:-</b> {{studyPlanData.introduction}}</p>
+                    <p> <b>Overall Strategy:- </b> {{studyPlanData.overallStrategy}}</p>
+                  <p> {{studyPlanData.weeklyBreakdown[0]}}</p>  
+
+                    <div *ngFor="let week of studyPlanData.weeklyBreakdown">
+
+                        <p> <b> Weekly Breakdown:</b> </p>
+                        <ul>
+                            <li class="fs-3"> <b> {{week.weekRange}} </b> </li>
+                            <li class="fs-5"> {{week.topic[1]}} </li>
+                            <li> <b class="fs-4">Resources:</b> </li>
+                            <ul *ngFor="let res of week.resources">
+                                <li> <a [href]="res" target="_blank"  id="resLink"> [{{res}}] </a> </li>
+                            </ul>
+                            <li> <b class="fs-4"> Activities</b> </li>
+                            <ul *ngFor="let act of week.activities">
+                                <li class="fs-5"> <a [href]="act" target="_blank"> {{act}} </a> </li>
+                            </ul>
+                             <li> <b class="fs-4">Desp: </b> </li>
+                              <ul *ngFor="let des of week.description">
+                                    <li class="fs-5"> {{des}} </li>
+                                </ul>
+                                <li> <b class="fs-4">Why to learn: </b> </li>
+                                <ul *ngFor="let why of week.whyToLearn">
+                                    <li class="fs-5"> {{why}} </li>
+                                </ul>
+                        </ul>
+                    </div>
+                    <p> {{studyPlanData.forNextTopic}} </p>
+                    <p> {{studyPlanData.finalReview}} </p>
+                    <p> {{studyPlanData.further}} </p>
+                    <p> {{studyPlanData.motivationMessage}} </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div> -->
+
+
     <div id="savebtn">
         <button (click)="ClearPlan()"> Clear </button>
         <button (click)="SavePlan()"> Save this Plan!</button>
