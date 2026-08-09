@@ -1,21 +1,48 @@
-<div id="questionDiv">
-<form *ngIf="mcq">
+<div id="quizWrapper">
 
-   
-        <p> {{mcq.mcq | json }}</p>
-        <ol type="A">
-       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="A" >  <label> {{ 'A'}}: {{ mcq.options['A'] }} </label></p>
-       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="B">  <label>  {{ 'B'}}: {{ mcq.options['B'] }} </label></p>
-       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="C">  <label> {{ 'C'}}: {{ mcq.options['C'] }} </label></p>
-       <p class="m-1">  <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="D">  <label>  {{ 'D'}}: {{ mcq.options['D'] }}  </label></p>
-          
-        </ol>
- <div id="btnGrp">
-
-     <button type="submit" (click)="SubmitAns()" > Submit </button>
-     <button type="reset"> Reset  </button>
-     <button (click)="SkipQuestion()" > Skip  </button>
+  <div id="progressBar" *ngIf="mcq">
+    <div id="progressStats">
+      <span class="statChip attempted">Attempted: {{ mcq.attempted }}</span>
+      <span class="statChip remaining">Remaining: {{ mcq.total - mcq.attempted }}</span>
+      <span class="statChip total">Total: {{ mcq.total }}</span>
     </div>
-</form>
+    <div id="progressTrack">
+      <div id="progressFill" [style.width.%]="mcq.total ? (mcq.attempted / mcq.total) * 100 : 0"></div>
+    </div>
+  </div>
+
+  <div id="questionDiv" *ngIf="mcq">
+    <form>
+
+      <p id="questionText"> {{mcq.mcq}} </p>
+
+      <div id="optionsList">
+        <label class="optionRow" [class.selected]="OptionSelectedByUser==='A'">
+          <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="A">
+          <span class="optionKey">A</span>
+          <span class="optionText">{{ mcq.options['A'] }}</span>
+        </label>
+        <label class="optionRow" [class.selected]="OptionSelectedByUser==='B'">
+          <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="B">
+          <span class="optionKey">B</span>
+          <span class="optionText">{{ mcq.options['B'] }}</span>
+        </label>
+        <label class="optionRow" [class.selected]="OptionSelectedByUser==='C'">
+          <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="C">
+          <span class="optionKey">C</span>
+          <span class="optionText">{{ mcq.options['C'] }}</span>
+        </label>
+        <label class="optionRow" [class.selected]="OptionSelectedByUser==='D'">
+          <input type="radio" name="option" [(ngModel)]="OptionSelectedByUser" value="D">
+          <span class="optionKey">D</span>
+          <span class="optionText">{{ mcq.options['D'] }}</span>
+        </label>
+      </div>
+
+      <div id="btnGrp">
+        <button type="submit" [disabled]="!OptionSelectedByUser || submitting" (click)="SubmitAns()"> {{ submitting ? 'Submitting...' : 'Submit' }} </button>
+      </div>
+    </form>
+  </div>
 
 </div>

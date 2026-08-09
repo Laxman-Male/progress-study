@@ -1,226 +1,109 @@
-<div id="heading">
+<section id="heading">
+    <h1>Let's Build Your First Study Plan!</h1>
+    <p>To get started, tell us about the subjects you're focusing on and your learning goals.</p>
+</section>
 
-    <h1 class="fw-semibold"> Let's Build Your First Study Plan! </h1>
-    <p>To get started, tell us about the subjects you're focusing on and your learning goals. </p>
+<div id="loginPrompt" *ngIf="isLoggedIn==false">
+    <p id="loginPromptText">Log in to start creating your personalized study plan.</p>
+    <a routerLinkActive="active" routerLink="/login" id="loginPromptBtn"> Login </a>
 </div>
-<div *ngIf="isLoggedIn==true">
 
-    <div id="selectSub">
-        <div>
-            <p class="m-0 fs-3 fw-semibold"> Enter Subject</p>
-            <input id="subject" class="ps-2" type="text">
-            <p> Which subject you want to learn? </p>
+<div id="planApp" *ngIf="isLoggedIn==true">
 
+    <div id="inputCard">
+        <div class="fieldGroup">
+            <label for="subject">Subject</label>
+            <input id="subject" type="text" placeholder="e.g. Physics" class="ps-2">
+            <span class="fieldHint">Which subject do you want to learn?</span>
         </div>
 
-        <div>
-            <p class="m-0 fs-3 fw-semibold"> Enter Topic</p>
-            <input id="topic" class="ps-2" type="text">
-            <p> Which topic you want to learn? </p>
+        <div class="fieldGroup">
+            <label for="topic">Topic <span class="optionalTag">optional</span></label>
+            <input id="topic" type="text" placeholder="e.g. Rotational Dynamics" class="ps-2">
+            <span class="fieldHint">Narrow it down to a specific topic.</span>
         </div>
-        <div>
-            <p class="m-0 fs-3 fw-semibold"> Enter Days</p>
-            <input id="days" class="ps-2" type="number">
-            <p> In how many days you want to learn? </p>
-        </div>
-        <div>
-            <p class="m-0 fs-3 fw-semibold"> Enter Hours per day</p>
-            <input id="hours" class="ps-2" type="number">
-            <p> How much time you can give per day? </p>
-        </div>
-    </div>
-    <div id="getItBtn">
-        <button (click)="GetPlanBtn()" *ngIf="getPlan==true" id="GetPlan"> Get plan!</button>
-        <button *ngIf="isGenerated==true" id="generate"> Plan Generated! Clear or Save the Plan </button>
-    </div>
 
-    
-    
-    <hr class="text-black">
-  
-    <div *ngIf="studyPlanData && daysEnteredByUser<=45">
-        <div class="d-flex gap-3 align-items-center justify-content-center ">
+        <div class="fieldGroup">
+            <label for="days">Days</label>
+            <input id="days" type="number" placeholder="e.g. 14" class="ps-2">
+            <span class="fieldHint">In how many days do you want to learn?</span>
+        </div>
 
-            <div *ngFor="let weekNumber of studyPlanData.weeklyBreakdown" >
-                <p class="border border-primary p-2 rounded-2" id="weekCount"> {{weekNumber.week}} </p>
+        <div class="fieldGroup">
+            <label for="hours">Hours per day</label>
+            <input id="hours" type="number" placeholder="e.g. 2" class="ps-2">
+            <span class="fieldHint">How much time can you give per day?</span>
+        </div>
+
+        <div id="getItBtn">
+            <button (click)="GetPlanBtn()" *ngIf="getPlan==true" id="GetPlan"> Get Plan </button>
+            <div id="planLoader" *ngIf="isLoading==true">
+                <span class="spinner"></span>
+                <span>Generating your plan...</span>
             </div>
-           
+            <div id="generate" *ngIf="isGenerated==true"> ✅ Plan generated — save or clear it below </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center">
-        <div id="workFlowOutsideDiv">
+    </div>
 
-            <div id="workFlow" class="fs-5">
-                <div *ngIf="studyPlanData" class="d-flex flex-column justify-content-center ">
+    <div id="planResult" *ngIf="studyPlanData && daysEnteredByUser<=45">
 
-                    <p><b>Title:-</b>   {{studyPlanData.title}}</p>
-                    <p> <b>Intro:-</b> {{studyPlanData.introduction}}</p>
-                    <p> <b>Overall Strategy:- </b> {{studyPlanData.overallStrategy}}</p>
-                    <!-- <p> {{studyPlanData.weeklyBreakdown[0]}}</p> -->
+        <div id="demoFallbackBanner" *ngIf="isDemoFallback==true">
+            <span class="demoIcon">⚠️</span>
+            <p>
+                Live plan generation is temporarily down (the API key needs to be renewed), so here's a sample
+                plan showing exactly how the real result looks. Please refer to this in the meantime — you can
+                still save it and try the MCQ reward flow.
+            </p>
+        </div>
 
-                    <div *ngFor="let week of studyPlanData.weeklyBreakdown">
+        <div id="weekNav">
+            <span class="weekChip" *ngFor="let weekNumber of studyPlanData.weeklyBreakdown"> {{weekNumber.week}} </span>
+        </div>
 
-                        <p> <b> Weekly Breakdown:</b> </p>
-                        <ul>
-                            <li class="fs-3"> <b> {{week.week}} </b> </li>
-                            <li class="fs-5"> {{week.topic[1]}} </li>
-                            <li> <b class="fs-4">Resources:</b> </li>
-                            <ul *ngFor="let res of week.resources">
-                                <li> <a [href]="res" target="_blank"  id="resLink"> [{{res}}] </a> </li>
-                            </ul>
-                            <li> <b class="fs-4"> Activities</b> </li>
-                            <ul *ngFor="let act of week.activities">
-                                <li class="fs-5"> <a [href]="act" target="_blank"> {{act}} </a> </li>
-                            </ul>
-                            <ul *ngFor="let daily of week.dailyBreakdown">
-                                <li class="fs-4 list-unstyled"> <b>🔷 {{daily.day}} </b> </li>
-                                <li> <b class="fs-4">Description:</b> </li>
-                                <ul *ngFor="let des of daily.description">
-                                    <li class="fs-5"> {{des}} </li>
-                                </ul>
-                                <li> <b class="fs-4">Why to learn: </b> </li>
-                                <ul *ngFor="let why of daily.whyToLearn">
-                                    <li class="fs-5"> {{why}} </li>
-                                </ul>
-                                <ul>
-                                    <li> <b class="fs-4"> Revision:- </b> </li>
-                                    <ul>
+        <article id="planArticle">
+            <h2 id="planTitle">{{studyPlanData.title}}</h2>
+            <p class="planIntro"><b>Introduction:</b> {{studyPlanData.introduction}}</p>
+            <p class="planIntro"><b>Overall Strategy:</b> {{studyPlanData.overallStrategy}}</p>
 
-                                        <li class="fs-5"> {{daily.revision}} </li>
-                                    </ul>
-                                </ul>
-                            </ul>
-                        </ul>
-                    </div>
-                    <p> {{studyPlanData.forNextTopic}} </p>
-                    <p> {{studyPlanData.finalReview}} </p>
-                    <p> {{studyPlanData.motivationMessage}} </p>
+            <div class="weekBlock" *ngFor="let week of studyPlanData.weeklyBreakdown">
+                <h3 class="weekHeading">{{week.week}}</h3>
+                <p class="weekTopic">{{week.topic[1]}}</p>
+
+                <div class="pillGroup" *ngIf="week.resources.length">
+                    <span class="pillLabel">Resources</span>
+                    <a class="pillLink" *ngFor="let res of week.resources; let i = index" [href]="res" target="_blank"> 🔗 Resource {{i + 1}} </a>
+                </div>
+
+                <div class="pillGroup" *ngIf="week.activities.length">
+                    <span class="pillLabel">Activities</span>
+                    <a class="pillLink" *ngFor="let act of week.activities; let i = index" [href]="act" target="_blank"> 🎯 Activity {{i + 1}} </a>
+                </div>
+
+                <div class="dayCard" *ngFor="let daily of week.dailyBreakdown">
+                    <p class="dayTitle">🔷 {{daily.day}}</p>
+                    <p class="dayLine" *ngFor="let des of daily.description"><b>What:</b> {{des}}</p>
+                    <p class="dayLine" *ngFor="let why of daily.whyToLearn"><b>Why:</b> {{why}}</p>
+                    <p class="dayLine"><b>Revision:</b> {{daily.revision}}</p>
                 </div>
             </div>
-        </div>
-        </div>
+
+            <p class="planClosing">{{studyPlanData.forNextTopic}}</p>
+            <p class="planClosing">{{studyPlanData.finalReview}}</p>
+            <p class="planClosing motivation">✨ {{studyPlanData.motivationMessage}}</p>
+        </article>
     </div>
 
-
-<!-- 
-    <div *ngIf="studyPlanData && (daysEnteredByUser>45 && daysEnteredByUser <100)">
-        <div class="d-flex gap-3 align-items-center justify-content-center ">
-
-            <div *ngFor="let weekNumber of studyPlanData.weeklyBreakdown" >
-                <p class="border border-primary p-2 rounded-2" id="weekCount"> {{weekNumber.week}} </p>
-            </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-center">
-        <div id="workFlowOutsideDiv">
-
-            <div id="workFlow" class="fs-5">
-                <div *ngIf="studyPlanData" class="d-flex flex-column justify-content-center ">
-
-                    <p><b>Title:-</b>   {{studyPlanData.title}}</p>
-                    <p> <b>Intro:-</b> {{studyPlanData.introduction}}</p>
-                    <p> <b>Overall Strategy:- </b> {{studyPlanData.overallStrategy}}</p>
-                  <p> {{studyPlanData.weeklyBreakdown[0]}}</p>  
-
-                    <div *ngFor="let week of studyPlanData.weeklyBreakdown">
-
-                        <p> <b> Weekly Breakdown:</b> </p>
-                        <ul>
-                            <li class="fs-3"> <b> {{week.weekRange}} </b> </li>
-                            <li class="fs-5"> {{week.topic[1]}} </li>
-                            <li> <b class="fs-4">Resources:</b> </li>
-                            <ul *ngFor="let res of week.resources">
-                                <li> <a [href]="res" target="_blank"  id="resLink"> [{{res}}] </a> </li>
-                            </ul>
-                            <li> <b class="fs-4"> Activities</b> </li>
-                            <ul *ngFor="let act of week.activities">
-                                <li class="fs-5"> <a [href]="act" target="_blank"> {{act}} </a> </li>
-                            </ul>
-                             <li> <b class="fs-4">Desp: </b> </li>
-                              <ul *ngFor="let des of week.description">
-                                    <li class="fs-5"> {{des}} </li>
-                                </ul>
-                                <li> <b class="fs-4">Why to learn: </b> </li>
-                                <ul *ngFor="let why of week.whyToLearn">
-                                    <li class="fs-5"> {{why}} </li>
-                                </ul>
-                        </ul>
-                    </div>
-                    <p> {{studyPlanData.forNextTopic}} </p>
-                    <p> {{studyPlanData.finalReview}} </p>
-                    <p> {{studyPlanData.further}} </p>
-                    <p> {{studyPlanData.motivationMessage}} </p>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div> -->
-
-
-    <div id="savebtn">
-        <button (click)="ClearPlan()"> Clear </button>
-        <button (click)="SavePlan()"> Save this Plan!</button>
+    <div id="savebtn" *ngIf="isGenerated==true">
+        <button (click)="ClearPlan()" id="clearBtn"> Clear </button>
+        <button (click)="SavePlan()" id="saveBtn"> Save this Plan </button>
     </div>
 
-
-    <p id="popUp" *ngIf="result===1"> Plan saved, <a routerLinkActive="active" routerLink="/viewplan"
-            class="fs-6   text-warning rounded-5 p-1"> Click here </a> </p>
-
-
- 
-    <!-- href=" "-> this make complete page relaod
-routerLink='/home'-> only necesary page reload with [Replaces href. Enables client-side route navigation.] -->
-
+    <p id="popUp" *ngIf="result===1"> ✅ Plan saved!
+        <a routerLinkActive="active" routerLink="/viewplan" id="popUpLink"> View it here </a>
+    </p>
 
 </div>
-<div class="d-flex justify-content-center">
 
-    <a routerLinkActive="active" routerLink="" class="text-decoration-none btn btn-primary">
-        Go Back
-    </a>
+<div id="goBackWrap" *ngIf="isLoggedIn==true">
+    <a routerLinkActive="active" routerLink="" id="loginPromptBtn"> Go Back </a>
 </div>
-<!-- <div *ngIf="studyPlanData">
-
-    <p> {{studyPlanData.title}}</p>
-    <p> {{studyPlanData.introduction}}</p>
-    <p> {{studyPlanData.overallStrategy}}</p>
- 
-    <div *ngFor="let week of studyPlanData.weeklyBreakdown">
-
-        <p> Weekly Breakdown-{{++weekNumber}} </p>
-        <ul>
-            <li> {{week.dayRange}} </li>
-            <li> {{week.topic}} </li>
-            <li> <b>Resources:</b> </li>
-            <ul *ngFor="let res of week.resources">
-                <li> <a [href]="res" target="_blank"> {{res}} </a> </li>
-            </ul>
-            <li> <b> Activities</b> </li>
-            <ul *ngFor="let act of week.activities">
-                <li> <a [href]="act" target="_blank"> {{act}} </a> </li>
-            </ul>
-            <ul *ngFor="let daily of week.dailyBreakdown">
-                <li> {{daily.day}} </li>
-                <li> <b>Description:</b>   </li>
-                <ul *ngFor="let des of daily.description">
-                    <li> {{des}} </li>
-                </ul>
-                <li> <b>Why to learn: </b> </li>
-                 <ul *ngFor="let why of daily.whyToLearn">
-                    <li> {{why}} </li>
-                </ul>
-
-                <li> {{daily.revision}} </li>
-            </ul>
-        </ul>
-    </div>
-    <p> {{studyPlanData.forNextTopic}} </p>
-    <p> {{studyPlanData.finalReview}} </p>
-    <p> {{studyPlanData.motivationMessage}} </p>
-</div> -->
-<hr>
-<!-- below is  one is static  -->
-<!-- <ul>
-    <li> {{weeklyBreakdown[0].dailyBreakdown[0].day}}</li>
-    <li> {{weeklyBreakdown[0].dailyBreakdown[0].description}}</li>
-    <li> {{weeklyBreakdown[0].dailyBreakdown[0].whyToLearn}}</li>
-    <li> {{weeklyBreakdown[0].dailyBreakdown[0].revision}}</li>
-</ul> -->

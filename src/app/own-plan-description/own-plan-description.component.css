@@ -1,93 +1,191 @@
-#workFlowOutsideDiv1{
-    border: 2px solid lightblue;
-    border-radius: 15px;
-    padding: 10px 20px;
-    display: flex;
-     align-items: center;
-    justify-content: center;
-    width: 80%;
-    max-width:100%;
+:host{
+    display: block;
+    color: var(--text-main);
 }
-#workFlow1{
-      max-height: 800px;
-      height: 80%;
-    overflow: auto;
-    /* max-width: 9/00px; */
-    width: 100%;
+*{
+    box-sizing: border-box;
 }
-#title{
-    border: 2px solid blue;
-    padding: 4px 15px;
-    border-radius: 10px;
-}
-#title:hover{
-    background-color: darkblue;
-    color: white;
-    cursor: pointer;
-}
-#week{
-    display: flex;
-    gap: 10px;
-}
-.w{
-    background-color: blue;
-    padding: 8px 10px;
-    color: white;
-    border-radius: 10px;
-    width: auto;
-}
-.w:hover{
-    cursor: pointer;
-    background-color: darkblue;
-    color: white;
-    transform: scale(1.1);
-}
-#weekCountArrList{
-    /* background-color: lightblue; */
-    padding: 5px;
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-    gap: 8px;
-    width: 80%;
-    overflow: auto;
-}
-#doneWeek{
-    background-color: rgb(30, 188, 30);
-    padding: 8px 10px;
-    color: black;
-    border-radius: 10px;
-    width: auto;
-}
-#doneWeek:hover{
-    cursor: pointer;
-    background-color: darkgreen;
-    color: white;
-    transform: scale(1.1);
-}
-#weekColumn{
-    display: flex;
-    gap: 10px;
-}
-.done{
-        background-color: rgb(30, 188, 30);
-          padding: 8px 10px;
-    color: black;
-    border-radius: 10px;
-    width: auto;
 
+#descWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 15px 60px 15px;
 }
- 
-.done:hover{
-     cursor: pointer;
-    background-color: darkgreen;
+
+/* ---------- Header ---------- */
+#descHeader{
+    text-align: center;
+}
+#descTitle{
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* ---------- Week progress ---------- */
+#weekProgress{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 720px;
+}
+#weekProgressChips{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.progressChip{
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.progressChip.done{
+    background-color: var(--accent);
     color: white;
-    transform: scale(1.1);
 }
-.locked{
-    background-color: gray;
-    padding: 8px 10px;
-    color: black;
-    border-radius: 10px;
-    width: auto;
+.progressChip.locked{
+    background-color: #e6e9ee;
+    color: #8a94a3;
+}
+button:disabled{
+    cursor: default;
+}
+
+#testRewardBtn{
+    text-decoration: none;
+    font-weight: 700;
+    padding: 10px 28px;
+    border-radius: 24px;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+#testRewardBtn.done{
+    background-color: #1e7b34;
+    color: white;
+}
+#testRewardBtn.done:hover{
+    background-color: #155c26;
+    transform: translateY(-2px);
+}
+#testRewardBtn.locked{
+    background-color: #e6e9ee;
+    color: #8a94a3;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+#weekNote{
+    margin: 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* ---------- Plan article (same system as /create-plan) ---------- */
+#planArticle{
+    width: 100%;
+    max-width: 820px;
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    padding: 30px 32px;
+}
+.planIntro{
+    color: var(--text-main);
+    line-height: 1.55;
+    margin: 0 0 10px 0;
+}
+
+.weekBlock{
+    margin: 26px 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-subtle);
+}
+.weekBlock:first-of-type{
+    margin-top: 20px;
+    padding-top: 0;
+    border-top: none;
+}
+.weekHeading{
+    margin: 0 0 4px 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+.weekTopic{
+    margin: 0 0 14px 0;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.pillGroup{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.pillLabel{
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    margin-right: 4px;
+}
+.pillLink{
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 14px;
+    transition: background-color 0.15s ease;
+}
+.pillLink:hover{
+    background-color: var(--accent);
+    color: white;
+}
+
+.dayCard{
+    background-color: var(--bg-page);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+}
+.dayTitle{
+    margin: 0 0 6px 0;
+    font-weight: 700;
+    color: var(--text-main);
+}
+.dayLine{
+    margin: 4px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.planClosing{
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 14px 0 0 0;
+}
+.planClosing.motivation{
+    color: var(--accent);
+    font-weight: 600;
+}
+
+@media (max-width:650px){
+    #planArticle{
+        padding: 22px 18px;
+    }
 }

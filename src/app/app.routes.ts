@@ -4,8 +4,10 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { OwnPlanComponent } from './own-plan/own-plan.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { OwnPlanDescriptionComponent } from './own-plan-description/own-plan-description.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsReviewComponent } from './questions-review/questions-review.component';
 // import { OwnPlanListComponent } from './own-plan-list/own-plan-list.component';
 
 export const routes: Routes = [
@@ -43,7 +45,13 @@ export const routes: Routes = [
         path: 'register', component: RegisterComponent
     },
     {
+        path: 'login', component: LoginComponent
+    },
+    {
         path: 'questions', component: QuestionsComponent
+    },
+    {
+        path: 'questions/review', component: QuestionsReviewComponent
     }
     //   {
     //                     path:'own-plan-list',

@@ -1,0 +1,34 @@
+<div id="reviewWrapper">
+
+  <div id="reviewHeader">
+    <h2>Quiz Review</h2>
+    <div id="scoreChip" *ngIf="reviewList.length">
+      Score: {{ correctCount }} / {{ reviewList.length }}
+    </div>
+  </div>
+
+  <div id="reviewGrid">
+    <div *ngFor="let item of reviewList; let i = index"
+         class="reviewCard"
+         [ngClass]="{ 'correct': item.isCorrect, 'incorrect': !item.isCorrect }">
+
+      <div class="cardHeader">
+        <span class="qNumber">Q{{ i + 1 }}</span>
+        <span class="statusBadge">{{ item.isCorrect ? 'Correct' : 'Incorrect' }}</span>
+      </div>
+
+      <p class="questionText">{{ item.mcq }}</p>
+
+      <div class="answerRow yourAnswer">
+        <span class="answerLabel">Your answer</span>
+        <span class="answerValue"><b>{{ item.optionSelected }}</b> — {{ item.options[item.optionSelected] }}</span>
+      </div>
+
+      <div class="answerRow correctAnswer" *ngIf="!item.isCorrect">
+        <span class="answerLabel">Correct answer</span>
+        <span class="answerValue"><b>{{ item.correctAns }}</b> — {{ item.options[item.correctAns] }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

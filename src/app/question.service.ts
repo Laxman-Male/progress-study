@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,12 @@ export class QuestionService {
     })
 
     console.log("icnoming ",title)
-    return this.http.get<any>('http://localhost:8000/firstQ',{headers : header,
+    return this.http.get<any>(`${environment.apiUrl}/firstQ`,{headers : header,
       params: params,
     })
   }
 
-  SubmitedMcq(title:string,optionsSelected:string, qNum:number){
+  SubmitedMcq(title:string,optionsSelected:string, mcqID:number){
         const token = localStorage.getItem("token")
 
       const header = new HttpHeaders({
@@ -36,12 +37,23 @@ export class QuestionService {
 
      const params=({
    Title: title,
-   QNumber: qNum,
+   mcqID: mcqID,
    option: optionsSelected
     })
      console.log("icnoming ",title)
-    return this.http.post<any>('http://localhost:8000/SubmQuestion',params,{headers : header})
+    return this.http.post<any>(`${environment.apiUrl}/SubmQuestion`,params,{headers : header})
 
+  }
+
+  GetReview(title:string){
+    const token = localStorage.getItem("token")
+    const header = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    const params=({
+      Title: title
+    })
+    return this.http.get<any>(`${environment.apiUrl}/quizReview`,{headers : header, params})
   }
 
 }

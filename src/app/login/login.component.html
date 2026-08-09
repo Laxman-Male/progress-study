@@ -1,0 +1,36 @@
+<div id="loginTopBar">
+  <a routerLink="/" id="brand">PlanFlow</a>
+</div>
+
+<div id="loginPage">
+  <div id="loginCard">
+    <h2 id="loginTitle">Welcome back</h2>
+    <p id="loginSubtitle">Log in to continue your study plan</p>
+
+    <div id="demoBanner">
+      <p id="demoText">👋 New here? Use <b>{{ demoUser.name }}</b> / <b>{{ demoUser.email }}</b> for a demo.</p>
+      <button type="button" id="demoBtn" (click)="UseDemoCredentials()">Use credential</button>
+    </div>
+
+    <form #loginForm="ngForm" class="d-flex flex-column" (ngSubmit)="LoginBtn(name.value, email.value)">
+
+      <label class="fw-semibold">Name</label>
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required>
+      <div *ngIf="name.invalid && name.touched" class="fieldError">Name is required.</div>
+
+      <label class="fw-semibold">Email</label>
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required>
+      <div *ngIf="email.invalid && email.touched" class="fieldError">Valid email is required.</div>
+
+      <p class="fieldError" *ngIf="isValid==false">Please check your name & email and try again.</p>
+
+      <button type="submit" [disabled]="loginForm.invalid || isSubmitting">
+        {{ isSubmitting ? 'Logging in...' : 'Log In' }}
+      </button>
+    </form>
+
+    <p id="switchToRegister">
+      New here? <a routerLink="/register">Create an account</a>
+    </p>
+  </div>
+</div>

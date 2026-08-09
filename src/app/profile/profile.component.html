@@ -1,29 +1,33 @@
 <router-outlet></router-outlet>
-<div *ngIf="showProfileContent">
 
-    <div  id="backDiv">
-        
-        <p id="backBtn">
-            <a routerLinkActive="active" routerLink="" class="text-decoration-none">
-                🔙
-            </a>
-        </p>
-</div> 
-<div  id="mainDiv">
-    
-    <div id="userData">
-        <img src="/profileImg.png" width="70px" class="rounded-3 bg-light">
+<div id="profilePage" *ngIf="showProfileContent">
+
+    <div id="backBar">
+        <a routerLinkActive="active" routerLink="" id="backBtn"> ← Back </a>
+    </div>
+
+    <div id="profileCard">
+        <img src="/profileImg.png" width="70px" class="rounded-3 bg-light" alt="Profile picture">
         <div id="userInfo">
-            <p> Name: {{toprofile.name}} </p>
-            <p> Email: {{toprofile.email}} </p>
+            <p class="userName">{{toprofile?.name}}</p>
+            <p class="userEmail">{{toprofile?.email}}</p>
         </div>
     </div>
-    <div class="userWork">
-        <p class="yourWork" type="button" (click)="SeeOwnWork()" > See Your Work </p>
+
+    <div id="actionList">
+        <div class="actionRow" (click)="SeeOwnWork()">
+            <span class="actionIcon">📚</span>
+            <span class="actionLabel">View Your Plan</span>
+            <span class="actionArrow">›</span>
+        </div>
+
+        <div class="actionRow disabled">
+            <span class="actionIcon">🎁</span>
+            <span class="actionLabel">Offers &amp; Coupons</span>
+            <span class="comingSoon">Coming soon</span>
+        </div>
     </div>
-    <div class="userWork">
-        <p class="yourWork"> Offers & Coupons</p>
-    </div>
-    <p class="btn btn-danger" (click)="LogOut()" > Log Out</p>
-</div>
+
+    <button id="logoutBtn" (click)="LogOut()"> Log Out </button>
+
 </div>

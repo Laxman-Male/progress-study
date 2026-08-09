@@ -1,0 +1,118 @@
+#reviewWrapper{
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#reviewHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+#reviewHeader h2{
+    margin: 0;
+}
+#scoreChip{
+    background-color: rgb(47, 47, 240);
+    color: white;
+    font-weight: bold;
+    padding: 8px 18px;
+    border-radius: 20px;
+}
+
+#reviewGrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.reviewCard{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 220px;
+    padding: 20px;
+    border-radius: 14px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    border-left: 6px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.reviewCard:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+.reviewCard.correct{
+    border-left-color: rgb(30, 150, 60);
+}
+.reviewCard.incorrect{
+    border-left-color: rgb(210, 60, 60);
+}
+
+.cardHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.qNumber{
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #333;
+}
+.statusBadge{
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: white;
+}
+.reviewCard.correct .statusBadge{
+    background-color: rgb(30, 150, 60);
+}
+.reviewCard.incorrect .statusBadge{
+    background-color: rgb(210, 60, 60);
+}
+
+.questionText{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    flex-grow: 1;
+}
+
+.answerRow{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+.answerLabel{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+}
+.yourAnswer{
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #222;
+}
+.reviewCard.correct .yourAnswer{
+    background-color: rgba(30, 150, 60, 0.15);
+}
+.reviewCard.incorrect .yourAnswer{
+    background-color: rgba(210, 60, 60, 0.15);
+}
+.correctAnswer{
+    background-color: rgba(30, 150, 60, 0.15);
+    color: #222;
+}

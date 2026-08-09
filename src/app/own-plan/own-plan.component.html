@@ -1,16 +1,32 @@
 <router-outlet></router-outlet>
-<div id="mainOuterPlan" *ngIf="showOwnPlan">
-    <p class="fs-4 fw-semibold" >🖊️Plan List </p>
-    <div  id="mainPlanBox">
-        <div class="planBox"  *ngFor="let t of titleArr; let idx=index;" (click)="SeePlanDescription(idx)">
-            <p class="fs-5">🖊️ Plan {{idx+1}} </p>
-            <div>
-                <p class="fs-5"> {{t}} </p>
-            </div>
-        </div>
-              
-   <!-- <button (click)="SeeWorkBtn()" > see work </button> -->
 
+<div id="planListWrapper" *ngIf="showOwnPlan">
+
+    <div id="planListHeader">
+        <h2>🖊️ Plan List</h2>
+        <span id="planCountChip" *ngIf="planCount">{{ planCount }} plan{{ planCount === 1 ? '' : 's' }}</span>
     </div>
+
+    <div id="planGrid" *ngIf="titleArr.length; else emptyState">
+        <div class="planCard"
+             [class.completed]="completedArr[idx]"
+             *ngFor="let t of titleArr; let idx=index;"
+             (click)="SeePlanDescription(idx)">
+
+            <div class="cardHeader">
+                <span class="planNumber">Plan {{ idx + 1 }}</span>
+                <span class="statusBadge">{{ completedArr[idx] ? '✅ Completed' : '📖 In Progress' }}</span>
+            </div>
+
+            <p class="planTitleText">{{ t }}</p>
+        </div>
+    </div>
+
+    <ng-template #emptyState>
+        <div id="emptyPlanState">
+            <p>You haven't created any plan yet.</p>
+            <a routerLinkActive="active" routerLink="/create-plan" id="emptyStateBtn"> Create Your First Plan </a>
+        </div>
+    </ng-template>
 
 </div>
