@@ -1,4 +1,4 @@
-#registerTopBar{
+#loginTopBar{
     background-color: darkblue;
     padding: 12px 20px;
 }
@@ -9,7 +9,7 @@
     text-decoration: none;
 }
 
-#registerPage{
+#loginPage{
     min-height: calc(100vh - 48px);
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
     background-color: #f7f9fc;
 }
 
-#registerCard{
+#loginCard{
     width: 100%;
     max-width: 380px;
     background-color: white;
@@ -30,32 +30,71 @@
     flex-direction: column;
 }
 
-#registerTitle{
+#loginTitle{
     margin: 0;
     font-weight: 700;
     color: darkblue;
     text-align: center;
 }
-#registerSubtitle{
+#loginSubtitle{
     margin: 4px 0 20px 0;
     text-align: center;
     color: #555;
     font-size: 0.9rem;
 }
 
-#registerCard form{
+#demoBanner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    background-color: #eaf3ff;
+    border: 1px solid lightblue;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    animation: demoPulse 2.2s ease-in-out infinite;
+}
+#demoText{
+    margin: 0;
+    font-size: 0.85rem;
+    color: darkblue;
+}
+#loginCard #demoBtn{
+    margin-top: 0;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+    background-color: darkblue;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+#loginCard #demoBtn:hover{
+    background-color: #00006e;
+    transform: scale(1.05);
+}
+@keyframes demoPulse{
+    0%   { box-shadow: 0 0 0 0 rgba(0, 0, 139, 0.25); }
+    70%  { box-shadow: 0 0 0 8px rgba(0, 0, 139, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 0, 139, 0); }
+}
+
+#loginCard form{
     gap: 6px;
 }
-#registerCard label{
+#loginCard label{
     margin-top: 10px;
     font-size: 0.9rem;
 }
-#registerCard input{
+#loginCard input{
     padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
 }
-#registerCard input:focus{
+#loginCard input:focus{
     outline: none;
     border-color: darkblue;
 }
@@ -66,7 +105,7 @@
     margin: 2px 0 0 0;
 }
 
-#registerCard button{
+#loginCard button{
     margin-top: 20px;
     padding: 10px;
     border: none;
@@ -76,25 +115,25 @@
     font-weight: 600;
     cursor: pointer;
 }
-#registerCard button:disabled{
+#loginCard button:disabled{
     background-color: #a0a0c0;
     cursor: not-allowed;
 }
-#registerCard button:not(:disabled):hover{
+#loginCard button:not(:disabled):hover{
     background-color: #00006e;
 }
 
-#switchToLogin{
+#switchToRegister{
     margin: 18px 0 0 0;
     text-align: center;
     font-size: 0.9rem;
     color: #555;
 }
-#switchToLogin a{
+#switchToRegister a{
     color: darkblue;
     font-weight: 600;
     text-decoration: none;
 }
-#switchToLogin a:hover{
+#switchToRegister a:hover{
     text-decoration: underline;
 }

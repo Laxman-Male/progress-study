@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class HomepageService {
       Authorization: `Bearer ${token}`
     })
     // isLogin(log: any): Observable <any>{
-      return this.http.post<any>('http://localhost:8000/login',{},{headers})
+      return this.http.post<any>(`${environment.apiUrl}/login`,{},{headers})
       // };
     }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, observeOn } from 'rxjs';
 import { observeNotification } from 'rxjs/internal/Notification';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class registerservice {
 
   //observable--asynchronous behaviour, this give full access to status, headers,body
   RegisterUser(userData: any): Observable<HttpResponse <any>>{
-    return this.http.post<any>('http://localhost:8000/register',userData,{
+    return this.http.post<any>(`${environment.apiUrl}/register`,userData,{
       observe:'response'
     })
   };

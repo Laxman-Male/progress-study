@@ -1,13 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-body{
-    /* background-image: linear-gradient(rgb(9, 9, 194), white); */
-    /* background-image: linear-gradient(white,rgb(65, 65, 249));
-    
-    background-repeat: no-repeat; */
-  /* background: linear-gradient(135deg, #f0f2f5 0%, #e0e5ec 100%); */
+:root{
+    --accent: darkblue;
+    --accent-hover: #00006e;
+    --accent-soft: #eaf1ff;
+    --bg-page: #f7f9fc;
+    --text-main: #26313f;
+    --text-muted: #5a6b7d;
+    --border-subtle: #e3e8ef;
+    --shadow-soft: 0 6px 18px rgba(16, 24, 64, 0.08);
+    --shadow-soft-hover: 0 10px 24px rgba(16, 24, 64, 0.12);
+}
 
-    background-color: rgb(224, 243, 249);
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: #f7f9fc;
     height: auto;
     width:auto;
 

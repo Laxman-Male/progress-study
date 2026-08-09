@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { count } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ paramObject.hours=getPlan.hours
 //need to make topic as optional parameter 
 
     const params= new HttpParams({fromObject: paramObject })
-    return this.http.get<any>('http://localhost:8000/study-plan',{headers:headers,params})
+    return this.http.get<any>(`${environment.apiUrl}/study-plan`,{headers:headers,params})
   }
 
   SavePlanByUser(){
@@ -50,12 +51,13 @@ paramObject.hours=getPlan.hours
       count: Number(weekCount),
       title: Title,
       userPlan2: userPlan2,
+      mcqs: userPlan2.mcqs,
     })
     // const payload={
       // userInfo: userInfo,
       // userPlan: userPlan2
     // }
-     return this.http.post<any>('http://localhost:8000/savePlan',params,{headers: headers});
+     return this.http.post<any>(`${environment.apiUrl}/savePlan`,params,{headers: headers});
    }
 
 }
